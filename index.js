@@ -49,42 +49,18 @@ let prefixes = ['0x26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371
  * - parachainSystem.LastDmqMqcHead => expected to be 0
  */
 const skippedModulesPrefix = [
-    "System",
-    "Session",
     "Authorship",
     "CollatorSelection",
+    "Session",
+    "Aura",
+    "AuraExt",
+    "ParachainStaking",
     "ParachainSystem",
-    "Timestamp",
-    "ParachainInfo",
-    "TransactionPause",
-    "Balances",
-    "TransactionPayment",
     "Democracy",
     "Council",
     "CouncilMembership",
     "TechnicalCommittee",
-    "AuthorInherent",
-    "AuraAuthorFilter",
-    "Aura",
-    "Treasury",
-    "XcmpQueue",
-    "PolkadotXcm",
-    "CumulusXcm",
-    "DmpQueue",
-    "XTokens",
-    "Utility",
-    "Multisig",
-    "Preimage",
-    "Scheduler",
-    "Sudo",
-    "TechnicalMembership",
-    "AuraExt",
-    "MantaPay",
-    "AssetManager",
-    "Assets",
-    "ParachainStaking",
-    "AuthorInherent",
-    "AuraAuthorFilter",
+    "TechnicalMembership"
 ];
 
 async function fixParachinStates (api, forkedSpec) {
@@ -141,6 +117,7 @@ async function main() {
   modules.forEach((module) => {
     if (module.storage) {
       if (!skippedModulesPrefix.includes(module.name.toHuman())) {
+        console.log("module.name.toHuman()---------------", module.name.toHuman());
         prefixes.push(xxhashAsHex(module.name, 128));
       }
     }
@@ -189,6 +166,7 @@ async function main() {
   forkedSpec.genesis.raw.top['0x26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371da9de1e86a9a8c739864cf3cc5ec2bea59fd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d'] = '0x000000000100000001000000000000000080c6a47e8d03000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
 
   if (alice !== '') {
+    console.log('Setting sudo key to Alice---------------------------');
     // Set sudo key to //Alice
     forkedSpec.genesis.raw.top['0x5c0d1176a568c1f92944340dbfed9e9c530ebca703c85910e7164cb7d1c9e47b'] = '0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d';
   }
