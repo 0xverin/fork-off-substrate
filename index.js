@@ -54,7 +54,7 @@ const skippedModulesPrefix = [
     "Session",
     "Aura",
     "AuraExt",
-    "ParachainStaking",
+    // "ParachainStaking",
     "ParachainSystem",
     "Democracy",
     "Council",
