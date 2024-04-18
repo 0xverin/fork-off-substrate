@@ -49,18 +49,18 @@ let prefixes = ['0x26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371
  * - parachainSystem.LastDmqMqcHead => expected to be 0
  */
 const skippedModulesPrefix = [
-    "Authorship",
-    "CollatorSelection",
-    "Session",
-    "Aura",
-    "AuraExt",
+    // "Authorship",
+    // "CollatorSelection",
+    // "Session",
+    // "Aura",
+    // "AuraExt",
     // "ParachainStaking",
-    "ParachainSystem",
-    "Democracy",
-    "Council",
-    "CouncilMembership",
-    "TechnicalCommittee",
-    "TechnicalMembership"
+    // "ParachainSystem",
+    // "Democracy",
+    // "Council",
+    // "CouncilMembership",
+    // "TechnicalCommittee",
+    // "TechnicalMembership"
 ];
 
 async function fixParachinStates (api, forkedSpec) {
@@ -83,6 +83,7 @@ async function main() {
   console.log(chalk.green('We are intentionally using the WSS endpoint. If you see any warnings about that, please ignore them.'));
   if (!fs.existsSync(schemaPath)) {
     console.log(chalk.yellow('Custom Schema missing, using default schema.'));
+    console.log("process.env.WS_RPC_ENDPOINT1111111", process.env.WS_RPC_ENDPOINT);
     api = await ApiPromise.create({ provider });
   } else {
     const { types, rpc } = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
