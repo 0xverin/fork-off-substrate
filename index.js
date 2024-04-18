@@ -48,7 +48,44 @@ let prefixes = ['0x26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371
  * - parachainSystem.lastRelayChainBlockNumber => we use RelayNumberStrictlyIncreases, needs to be reset to 0
  * - parachainSystem.LastDmqMqcHead => expected to be 0
  */
-const skippedModulesPrefix = ['Authorship', 'CollatorSelection', 'Session', 'Aura', 'AuraExt', 'ParachainStaking','ParachainSystem'];
+const skippedModulesPrefix = [
+    "System",
+    "Session",
+    "Authorship",
+    "CollatorSelection",
+    "ParachainSystem",
+    "Timestamp",
+    "ParachainInfo",
+    "TransactionPause",
+    "Balances",
+    "TransactionPayment",
+    "Democracy",
+    "Council",
+    "CouncilMembership",
+    "TechnicalCommittee",
+    "AuthorInherent",
+    "AuraAuthorFilter",
+    "Aura",
+    "Treasury",
+    "XcmpQueue",
+    "PolkadotXcm",
+    "CumulusXcm",
+    "DmpQueue",
+    "XTokens",
+    "Utility",
+    "Multisig",
+    "Preimage",
+    "Scheduler",
+    "Sudo",
+    "TechnicalMembership",
+    "AuraExt",
+    "MantaPay",
+    "AssetManager",
+    "Assets",
+    "ParachainStaking",
+    "AuthorInherent",
+    "AuraAuthorFilter",
+];
 
 async function fixParachinStates (api, forkedSpec) {
   const skippedKeys = [
@@ -73,6 +110,7 @@ async function main() {
     api = await ApiPromise.create({ provider });
   } else {
     const { types, rpc } = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
+    console.log(chalk.green('Using custom schema------------------', types, rpc, '------------------'));
     api = await ApiPromise.create({
       provider,
       types,
