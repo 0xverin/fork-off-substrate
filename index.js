@@ -49,18 +49,18 @@ let prefixes = ['0x26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371
  * - parachainSystem.LastDmqMqcHead => expected to be 0
  */
 const skippedModulesPrefix = [
-    // "Authorship",
-    // "CollatorSelection",
-    // "Session",
-    // "Aura",
-    // "AuraExt",
-    // "ParachainStaking",
-    // "ParachainSystem",
-    // "Democracy",
-    // "Council",
-    // "CouncilMembership",
-    // "TechnicalCommittee",
-    // "TechnicalMembership"
+    "Authorship",
+    "CollatorSelection",
+    "Session",
+    "Aura",
+    "AuraExt",
+    "ParachainStaking",
+    "ParachainSystem",
+    "Democracy",
+    "Council",
+    "CouncilMembership",
+    "TechnicalCommittee",
+    "TechnicalCommitteeMembership",
 ];
 
 async function fixParachinStates (api, forkedSpec) {
@@ -126,11 +126,14 @@ async function main() {
 
   // Generate chain spec for original and forked chains
   if (originalChain == '') {
+    console.log("originalChain---------------------------", originalChain, originalSpecPath);
     execSync(binaryPath + ` build-spec --raw > ` + originalSpecPath);
   } else {
     execSync(binaryPath + ` build-spec --chain ${originalChain} --raw > ` + originalSpecPath);
   }
   if (forkChain == '') {
+    console.log("forkChain---------------------------", forkChain, forkedSpecPath);
+
     execSync(binaryPath + ` build-spec --dev --raw > ` + forkedSpecPath);
   } else {
     execSync(binaryPath + ` build-spec --chain ${forkChain} --raw > ` + forkedSpecPath);
